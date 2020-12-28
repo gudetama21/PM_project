@@ -8,13 +8,14 @@ import java.util.Arrays;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginListener implements ActionListener{
+public class LoginListener implements ActionListener {
 	private JTextField text_name;
 	private JPasswordField text_password;
 	private JFrame login;
@@ -24,9 +25,8 @@ public class LoginListener implements ActionListener{
 		this.text_name=text_name;
 		this.text_password=text_password;
 	}
-	
-	
-	public void actionPerformed(ActionEvent e){
+		
+	public void actionPerformed(ActionEvent e) {
 		Dimension dim3 = new Dimension(300,30);
 		
 		//生成新介面
@@ -43,10 +43,13 @@ public class LoginListener implements ActionListener{
 				//通過我們獲取的登入介面物件，用dispose方法關閉它
 				login.dispose();
 				try {
+					JFrame.setDefaultLookAndFeelDecorated(true);
+					JDialog.setDefaultLookAndFeelDecorated(true);
 					JFrame gui = new GUI();
 					gui.setVisible(true);
-				} catch (Exception e1) {					
-					e1.printStackTrace();
+				} 
+				catch (Exception e1) {					
+					
 				}
 			}
 			
@@ -63,19 +66,15 @@ public class LoginListener implements ActionListener{
 				close.setSize(dim3);
 				jp2.add(close);
 				login2.add(jp2,BorderLayout.SOUTH);
-				
-				
-				close.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
+								
+				close.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
 						login2.dispose();
 					}
 				});
 				
 				login2.setResizable(false);
 				login2.setVisible(true);
-			}
-										
+			}										
 	}
 }
