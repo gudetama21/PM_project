@@ -19,7 +19,7 @@ public class Login extends JFrame {
 		//設定窗體物件的屬性值
 		setTitle("Login");//設定窗體標題
 		setSize(350, 200);//設定窗體大小，只對頂層容器生效
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//設定窗體關閉操作，3表示關閉窗體退出程式
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//設定窗體關閉操作
 		setLocationRelativeTo(null);//設定窗體相對於另一組間的居中位置，引數null表示窗體相對於螢幕的中央位置
 		setResizable(false);//禁止調整窗體大小
 		setFont(new Font("微軟正黑體",Font.PLAIN,14));//設定字型，顯示格式正常，大小
@@ -34,31 +34,24 @@ public class Login extends JFrame {
 		labname.setFont(new Font("微軟正黑體",Font.PLAIN,14));
 		add(labname);
 		
-		//例項化JTextField標籤物件化
 		JTextField text_name = new JTextField();
 		Dimension dim1 = new Dimension(250,30);
 		text_name.setPreferredSize(dim1);//設定除頂級容器元件以外其他元件的大小
-		//將textName標籤新增到窗體上
 		add(text_name);
 		
-		//例項化JLabel標籤物件，該物件顯示“密碼”
 		JLabel labpass = new JLabel("密碼：");
 		labpass.setFont(new Font("微軟正黑體",Font.PLAIN,14));
 		add(labpass);
 		
-		//例項化JPasswordField
 		JPasswordField text_password = new JPasswordField();
-		//設定大小
 		text_password.setPreferredSize(dim1);
 		add(text_password);
 		
-		//例項化JButton元件
 		JButton button1 = new JButton();
 		//設定按鍵的顯示內容
 		Dimension dim2 = new Dimension(100,30);
 		button1.setText("登入");
 		button1.setFont(new Font("微軟正黑體",Font.PLAIN,14));
-		//設定按鍵大小
 		button1.setSize(dim2);
 		add(button1);
 		
