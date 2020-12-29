@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SQL {
 	private String server = "jdbc:mysql://127.0.0.1/";
-	private String database = "pms";
+	private String database = "pms?characterEncoding=utf-8";
 	private String url = server + database;
 	private String username = "root";
 	private String password = "";
@@ -39,11 +39,12 @@ public class SQL {
 			list.add(result.getString("country"));
 			l++;
 		}
-		Object[][] info = new Object[l][5]; 
-		for(int i=0;i<l;i++) {
+		Object[][] info = new Object[l][6]; 
+		for(int i=0;i<l;i++) {			
 			for(int j=0;j<5;j++) {
 				info[i][j]=list.get(i*5+j);
-			}			  
+			}	
+			info[i][5]=(boolean)false;
 		}
 							
 		result.close();
@@ -82,7 +83,7 @@ public class SQL {
 		}	
 	}
 	public void delete(String db,int id) {
-		String query = "DELETE FROM "+" WHERE Id = ?";
+		String query = "DELETE FROM "+db+" WHERE Id = ?";
 		try {
 			ps = con.prepareStatement(query);
 			ps.setInt(1, id);
