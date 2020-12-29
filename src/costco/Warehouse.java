@@ -36,11 +36,13 @@ public class Warehouse extends JPanel {
 	}
 	public JTable createtable() throws SQLException {			
 		table =new JTable(mtm);
-		table.setPreferredScrollableViewportSize(new Dimension(730,280));		
+		table.setPreferredScrollableViewportSize(new Dimension(730,280));
+		table.setRowHeight(25);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		DefaultTableCellRenderer  renderer  =  new  DefaultTableCellRenderer();   
 		renderer.setHorizontalAlignment(JTextField.CENTER);
 		int y=table.getColumnCount();
-		for(int i=0;i<y;i++) {
+		for(int i=0;i<y-1;i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 		
@@ -85,7 +87,6 @@ public class Warehouse extends JPanel {
 		af.add(jp,BorderLayout.CENTER);
 		af.add(jb,BorderLayout.SOUTH);
 		class AddActionListener implements ActionListener{
-
 			public void actionPerformed(ActionEvent e) {
 				String s= ""+(table.getRowCount()+1);
 				label0.setText(s);
@@ -96,21 +97,20 @@ public class Warehouse extends JPanel {
 				af.setVisible(true);
 				jb.addActionListener(new ActionListener() {
 
-					public void actionPerformed(ActionEvent e) {
-						sql.add("product", (table.getRowCount()+1), jt1.getText(),
-								Integer.parseInt(jt2.getText()), jt3.getText(), jt4.getText());
+					public void actionPerformed(ActionEvent e) {			
 						try {
+							sql.add("product", (table.getRowCount()+1), jt1.getText(),
+									Integer.parseInt(jt2.getText()), jt3.getText(), jt4.getText());
 							mtm.update();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
+							af.dispose();
+						} catch (Exception e1) {							
+							JOptionPane.showMessageDialog(null,"輸入有誤",
+	                                  "錯誤", JOptionPane.ERROR_MESSAGE);							
 						}
 						table.validate();
-						table.updateUI();					
-						af.dispose();
-					}
-					
+						table.updateUI();											
+					}					
 				});
-
 			}			
 		}
 		AddActionListener l = new AddActionListener();
@@ -124,8 +124,13 @@ public class Warehouse extends JPanel {
 		class DelActionListener implements ActionListener{
 
 			public void actionPerformed(ActionEvent e) {
-				
+				int x = table.getRowCount();	
 				try {
+					for(int i=0;i<x;i++) {
+						if((boolean) table.getValueAt(i,5)==true) {
+							sql.delete("product", Integer.parseInt(table.getValueAt(i,0).toString()));
+						}						
+					}
 					mtm.update();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -159,7 +164,7 @@ public class Warehouse extends JPanel {
 	}
 	class MyTableModel extends AbstractTableModel{
 		Object[][] data;
-		String[] columns={"Id", "name", "price", "unit", "country"};
+		String[] columns={"Id", "name", "price", "unit", "country", "delete"};
 		public MyTableModel() throws SQLException {
 			data=sql.selectall("product");			
 		}
@@ -182,4 +187,3 @@ public class Warehouse extends JPanel {
 	 }
 
 }
-	
