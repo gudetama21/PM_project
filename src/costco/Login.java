@@ -22,16 +22,16 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//設定窗體關閉操作
 		setLocationRelativeTo(null);//設定窗體相對於另一組間的居中位置，引數null表示窗體相對於螢幕的中央位置
 		setResizable(false);//禁止調整窗體大小
-		setFont(new Font("微軟正黑體",Font.PLAIN,14));//設定字型，顯示格式正常，大小
+		setFont(new Font("微軟正黑體",Font.PLAIN,15));//設定字型，顯示格式正常，大小
 		
 		//例項化FlowLayout流式佈局類的物件，指定對齊方式為居中對齊元件之間的間隔為10個畫素
-		FlowLayout fl = new FlowLayout(FlowLayout.CENTER,10,10);
+		FlowLayout fl = new FlowLayout(FlowLayout.CENTER,15,15);
 		//例項化流式佈局類的物件
 		setLayout(fl);
 		
 		//例項化JLabel標籤物件，該物件顯示“賬號”
 		JLabel labname = new JLabel("帳號：");
-		labname.setFont(new Font("微軟正黑體",Font.PLAIN,14));
+		labname.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		add(labname);
 		
 		JTextField text_name = new JTextField();
@@ -40,7 +40,7 @@ public class Login extends JFrame {
 		add(text_name);
 		
 		JLabel labpass = new JLabel("密碼：");
-		labpass.setFont(new Font("微軟正黑體",Font.PLAIN,14));
+		labpass.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		add(labpass);
 		
 		JPasswordField text_password = new JPasswordField();
@@ -51,7 +51,7 @@ public class Login extends JFrame {
 		//設定按鍵的顯示內容
 		Dimension dim2 = new Dimension(100,30);
 		button1.setText("登入");
-		button1.setFont(new Font("微軟正黑體",Font.PLAIN,14));
+		button1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		button1.setSize(dim2);
 		add(button1);
 		
