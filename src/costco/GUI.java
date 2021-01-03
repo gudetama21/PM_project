@@ -27,7 +27,7 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Costco");
 		setIconImage(img.getImage());
-		setSize(750, 450);
+		setSize(850, 550);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
@@ -53,6 +53,13 @@ public class GUI extends JFrame {
 		menuitem3 = new JMenuItem("顧客");
 		menuitem4 = new JMenuItem("銷售");
 		menuitem5 = new JMenuItem("退貨");
+		menu1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menu2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menuitem1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menuitem2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menuitem3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menuitem4.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menuitem5.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		
 		class MenuActionListener implements ActionListener {
 			int num;
@@ -99,12 +106,12 @@ public class GUI extends JFrame {
 	}
 	public void createLabel() {
 		icon = new JLabel("",JLabel.CENTER);
-		img.setImage(img.getImage().getScaledInstance(500,300,Image.SCALE_DEFAULT));
+		img.setImage(img.getImage().getScaledInstance(600,350,Image.SCALE_DEFAULT));
 		icon.setIcon(img);
 		
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd E a hh:mm:ss");
 		label1 = new JLabel("現在時間 : "+ ft.format(new Date()),JLabel.CENTER);
-		label1.setFont(new Font("微軟正黑體",Font.PLAIN,18));
+		label1.setFont(new Font("微軟正黑體",Font.PLAIN,20));
 		Timer timeAction = new Timer(1000, new ActionListener() {          			  
             public void actionPerformed(ActionEvent e) {       
                 long time = System.currentTimeMillis();                        
