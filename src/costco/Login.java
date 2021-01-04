@@ -14,7 +14,6 @@ public class Login extends JFrame {
 	public Login() throws Exception {
 		initUI();
 	}
-	//在類中定義初始化介面的方法
 	public void initUI() {		
 		setTitle("Login");
 		setSize(350, 200);
