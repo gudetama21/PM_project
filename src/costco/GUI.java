@@ -17,11 +17,13 @@ import javax.swing.*;
 
 public class GUI extends JFrame {
 	private JPanel panel1;
-	private JMenuItem menuitem1,menuitem2,menuitem3,menuitem4,menuitem5;
-	private JMenu menu1,menu2;
+	private JMenuItem menuitem1,menuitem2,menuitem3,menuitem4,menuitem5,menuItem6;
+	private JMenu menu1,menu2,menu3;
 	private JMenuBar bar;
 	private JLabel label1,icon;
 	private ImageIcon img = new ImageIcon("src\\costco圖片.jpg");
+	private Warehouse wh;
+	private Supplier su;
 	
 	public GUI() throws Exception {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +36,10 @@ public class GUI extends JFrame {
 		add(createPanel());		
 		panel1.setVisible(true);
 		addWindowListener(new WindowHandler());
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);		
+		su = new Supplier();
+		wh = new Warehouse();
+		
 	}
 	public JPanel createPanel() throws SQLException {
 		panel1 = new JPanel();	
@@ -48,19 +53,21 @@ public class GUI extends JFrame {
 	public void createmenu() throws SQLException {		
 		menu1 = new JMenu("顧客管理");
 		menu2 = new JMenu("作業管理");
+		menu3 = new JMenu("數據分析");
 		menuitem1 = new JMenuItem("庫存");
 		menuitem2 = new JMenuItem("供應商");
 		menuitem3 = new JMenuItem("顧客");
 		menuitem4 = new JMenuItem("銷售");
 		menuitem5 = new JMenuItem("退貨");
+		
 		menu1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menu2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		menu3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem4.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem5.setFont(new Font("微軟正黑體",Font.PLAIN,15));
-		
 		class MenuActionListener implements ActionListener {
 			int num;
 			public MenuActionListener(int num) throws SQLException {
@@ -68,15 +75,15 @@ public class GUI extends JFrame {
 			}
 			public void actionPerformed(ActionEvent e) {				
 				try {
-					panel1.setVisible(false);
-					Warehouse wh = new Warehouse();
-					add(wh);
-					wh.setVisible(false);
-					
+					panel1.removeAll();;
 					switch(num) {
-					case 1: wh.setVisible(true);
+					case 1: 
+						panel1.add(wh);
+						wh.setVisible(true);
 						break;
-					case 2:
+					case 2: 
+						panel1.add(su);
+						su.setVisible(true);
 						break;
 					case 3:
 						break;
@@ -85,14 +92,15 @@ public class GUI extends JFrame {
 					case 5:
 						break;
 				}
-				} catch (SQLException e1) {
-
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}				
 			}
 		}
 		MenuActionListener listener1 = new MenuActionListener(1);
 		menuitem1.addActionListener(listener1);
-		menuitem2.addActionListener(listener1);
+		MenuActionListener listener2 = new MenuActionListener(2);
+		menuitem2.addActionListener(listener2);
 		
 		menu1.add(menuitem3);
 		menu1.add(menuitem4);
@@ -102,6 +110,7 @@ public class GUI extends JFrame {
 		bar = new JMenuBar();
 		bar.add(menu1);
 		bar.add(menu2);
+		bar.add(menu3);
 		setJMenuBar(bar);		
 	}
 	public void createLabel() {
