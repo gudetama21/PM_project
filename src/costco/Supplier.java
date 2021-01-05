@@ -1,6 +1,15 @@
-package costco;
 
-import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Supplier extends JPanel {
 	private JTable table;
@@ -18,8 +27,6 @@ public class Supplier extends JPanel {
 		smtm=new STableModel();
 		scroll = new JScrollPane(createtable());
 		add(scroll);
-		add(deletebutton(), BorderLayout.CENTER);
-		add(modifybutton(), BorderLayout.CENTER);
 	}
 	public JTable createtable() {			
 		table =new JTable(smtm);
@@ -30,65 +37,16 @@ public class Supplier extends JPanel {
 		DefaultTableCellRenderer  renderer  =  new  DefaultTableCellRenderer();   
 		renderer.setHorizontalAlignment(JTextField.CENTER);
 		int y=table.getColumnCount();
-		for(int i=0;i<y-1;i++) {
+		for(int i=0;i<y;i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 	     
 		return table;
 	}
 	
-	public JButton deletebutton() {
-		button2 = new JButton("刪除");
-		button2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
-		class DelActionListener implements ActionListener{
-
-			public void actionPerformed(ActionEvent e) {
-				int x = table.getRowCount();	
-				try {
-					for(int i=0;i<x;i++) {
-						if((boolean) table.getValueAt(i,5)==true) {
-							sql.deletesupply(Integer.parseInt(table.getValueAt(i,0).toString()));
-						}						
-					}
-					smtm.update();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				table.validate();
-				table.updateUI();
-			}			
-		}
-		DelActionListener l = new DelActionListener();
-		button2.addActionListener(l);
-		return button2;
-	}
-	
-	public JButton modifybutton() {
-		button3 = new JButton("儲存修改");
-		button3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
-		class ModActionListener implements ActionListener{
-			int x = table.getRowCount();
-			public void actionPerformed(ActionEvent e) {
-				try{
-					for(int i=0;i<x;i++) {	
-						sql.modifysupply(table.getValueAt(i,1).toString(), 
-								Integer.parseInt(table.getValueAt(i,4).toString()), 					
-								Integer.parseInt(table.getValueAt(i,0).toString()));										
-					}
-				}					
-				catch (Exception e1) {							
-					JOptionPane.showMessageDialog(null,"輸入有誤",
-                              "錯誤", JOptionPane.ERROR_MESSAGE);							
-				}
-			}			
-		}
-		ModActionListener listener = new ModActionListener();
-		button3.addActionListener(listener);
-		return button3;
-	}
 	class STableModel extends AbstractTableModel{
 		Object[][] data;
-		String[] columns={"ID", "時間", "供應商", "商品名", "數量", "選取"};
+		String[] columns={"ID", "時間", "供應商", "商品名", "數量"};
 		public STableModel() {
 			data=sql.selectsupply();			
 		}		

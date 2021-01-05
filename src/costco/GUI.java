@@ -1,4 +1,3 @@
-package costco;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -18,12 +17,10 @@ import javax.swing.*;
 public class GUI extends JFrame {
 	private JPanel panel1;
 	private JMenuItem menuitem1,menuitem2,menuitem3,menuitem4,menuitem5,menuItem6;
-	private JMenu menu1,menu2,menu3;
+	private JMenu menu1,menu2;
 	private JMenuBar bar;
 	private JLabel label1,icon;
 	private ImageIcon img = new ImageIcon("src\\costco圖片.jpg");
-	private Warehouse wh;
-	private Supplier su;
 	
 	public GUI() throws Exception {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,8 +34,6 @@ public class GUI extends JFrame {
 		panel1.setVisible(true);
 		addWindowListener(new WindowHandler());
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);		
-		su = new Supplier();
-		wh = new Warehouse();
 		
 	}
 	public JPanel createPanel() throws SQLException {
@@ -53,7 +48,6 @@ public class GUI extends JFrame {
 	public void createmenu() throws SQLException {		
 		menu1 = new JMenu("顧客管理");
 		menu2 = new JMenu("作業管理");
-		menu3 = new JMenu("數據分析");
 		menuitem1 = new JMenuItem("庫存");
 		menuitem2 = new JMenuItem("供應商");
 		menuitem3 = new JMenuItem("顧客");
@@ -62,7 +56,6 @@ public class GUI extends JFrame {
 		
 		menu1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menu2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
-		menu3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem1.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		menuitem3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
@@ -75,21 +68,42 @@ public class GUI extends JFrame {
 			}
 			public void actionPerformed(ActionEvent e) {				
 				try {
-					panel1.removeAll();;
+					panel1.removeAll();
 					switch(num) {
 					case 1: 
+						Warehouse wh = new Warehouse();
 						panel1.add(wh);
 						wh.setVisible(true);
+						panel1.revalidate();
+						panel1.repaint();
 						break;
 					case 2: 
+						Supplier su = new Supplier();
 						panel1.add(su);
 						su.setVisible(true);
+						panel1.revalidate();
+						panel1.repaint();
 						break;
 					case 3:
+						Customer cu = new Customer();
+						panel1.add(cu);
+						cu.setVisible(true);
+						panel1.revalidate();
+						panel1.repaint();
 						break;
 					case 4:
+						Sell se = new Sell();
+						panel1.add(se);
+						se.setVisible(true);
+						panel1.revalidate();
+						panel1.repaint();
 						break;
 					case 5:
+						Return re = new Return();
+						panel1.add(re);
+						re.setVisible(true);
+						panel1.revalidate();
+						panel1.repaint();
 						break;
 				}
 				} catch (Exception e1) {
@@ -101,6 +115,12 @@ public class GUI extends JFrame {
 		menuitem1.addActionListener(listener1);
 		MenuActionListener listener2 = new MenuActionListener(2);
 		menuitem2.addActionListener(listener2);
+		MenuActionListener listener3 = new MenuActionListener(3);
+		menuitem3.addActionListener(listener3);
+		MenuActionListener listener4 = new MenuActionListener(4);
+		menuitem4.addActionListener(listener4);
+		MenuActionListener listener5 = new MenuActionListener(5);
+		menuitem5.addActionListener(listener5);
 		
 		menu1.add(menuitem3);
 		menu1.add(menuitem4);
@@ -110,7 +130,6 @@ public class GUI extends JFrame {
 		bar = new JMenuBar();
 		bar.add(menu1);
 		bar.add(menu2);
-		bar.add(menu3);
 		setJMenuBar(bar);		
 	}
 	public void createLabel() {

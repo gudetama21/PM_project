@@ -1,4 +1,4 @@
-package costco;
+
 
 import javax.swing.*;
 
