@@ -206,7 +206,7 @@ public class Warehouse extends JPanel {
 				int x = table.getRowCount();	
 				for(int i=0;i<x;i++) {
 					if((boolean)table.getValueAt(i,4)==true) {
-						int a=2*sql.selectsum(Integer.parseInt(table.getValueAt(i,0).toString()))+100-Integer.parseInt(table.getValueAt(i,3).toString());
+						int a=2*sql.selectsum(Integer.parseInt(table.getValueAt(i,0).toString()))+70-Integer.parseInt(table.getValueAt(i,3).toString());
 						jt1.setText(""+a);
 						af.setVisible(true);
 						int n=i;
