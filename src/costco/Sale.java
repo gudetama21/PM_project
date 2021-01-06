@@ -18,15 +18,24 @@ public class Sale extends JPanel{
 	private JComboBox jc;
 	private ArrayList<Object> a;
 	private JTextPane pane;
+	private JLabel label;
+	private JPanel jp;
 	
 	public Sale() {
-		setPreferredSize(new Dimension(850, 550));
-		FlowLayout fl = new FlowLayout(FlowLayout.CENTER,15,5);
-		setLayout(fl);
+		setPreferredSize(new Dimension(600, 550));		
+		setLayout(new FlowLayout(FlowLayout.CENTER,15,15));
 		
 		sql = new SQL();
-		add(createjc(), BorderLayout.NORTH);
-		add(createpane(), BorderLayout.CENTER);
+		
+		add(createpanel());
+		add(createpane());		
+	}
+	public JPanel createpanel() {
+		jp = new JPanel();
+		jp.setPreferredSize(new Dimension(600, 50));
+		jp.add(createlabel(), FlowLayout.LEFT);
+		jp.add(createjc());
+		return jp;
 		
 	}
 	public JComboBox createjc() {
@@ -42,7 +51,7 @@ public class Sale extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				double sum=0;
 				int stime=0;
-				String slast="";
+				String slast="無";
 				double back=0;
 				int btime=0;
 				String blast="無";
@@ -61,9 +70,9 @@ public class Sale extends JPanel{
 			        StyleConstants.setForeground(style, Color.black);
 			        try {
 						doc.insertString(doc.getLength(), "總購買金額:  "+sum+"\n購買次數: "+stime+"\n最近購買日期: "+slast
-								+"\n總退貨金額: "+back+"\n退貨次數: "+btime+"\n最近退貨日期: "+blast,style);
+								+"\n\n總退貨金額: "+back+"\n退貨次數: "+btime+"\n最近退貨日期: "+blast,style);
 						
-						if((back/sum)>0.7)StyleConstants.setForeground(style, Color.RED);
+						if((back/sum)>0.6)StyleConstants.setForeground(style, Color.RED);
 						DecimalFormat df = new DecimalFormat("#0.00%");
 						doc.insertString(doc.getLength(), "\n退貨率: "+df.format(back/sum),style);
 			        } catch (BadLocationException e1) {
@@ -80,9 +89,14 @@ public class Sale extends JPanel{
 	}
 	public JTextPane createpane() {
 		pane = new JTextPane();
-		pane.setPreferredSize(new Dimension(500, 350));
+		pane.setPreferredSize(new Dimension(580, 300));
 		pane.setEditable(false);
 		pane.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		return pane;				
 	}
+	public JLabel createlabel() {
+		label = new JLabel("顧客ID:");
+		label.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		return label;
+	}	
 }

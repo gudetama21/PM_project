@@ -9,11 +9,12 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class Customer extends JPanel {
 	private JTable table;
 	private JScrollPane scroll;
-	private JButton button1,button2,button3,button4;
+	private JButton button1,button2,button3,button4,button;
 	private SQL sql;
 	private MyTableModel mtm;
 	
@@ -26,17 +27,18 @@ public class Customer extends JPanel {
 		mtm=new MyTableModel();
 		scroll = new JScrollPane(createtable());
 		add(scroll);
-		add(addbutton(), BorderLayout.CENTER);
-		add(deletebutton(), BorderLayout.CENTER);
-		add(modifybutton(), BorderLayout.CENTER);
-		add(salebutton(), BorderLayout.CENTER);
+		add(addbutton());
+		add(deletebutton());
+		add(modifybutton());
+		add(salebutton());
 	}
 	public JTable createtable() {			
 		table =new JTable(mtm);
 		table.setPreferredScrollableViewportSize(new Dimension(830,380));
 		table.setRowHeight(25);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         
+		TableColumn column=table.getColumnModel().getColumn(3);
+		column.setPreferredWidth(150);
 		DefaultTableCellRenderer  renderer  =  new  DefaultTableCellRenderer();   
 		renderer.setHorizontalAlignment(JTextField.CENTER);
 		int y=table.getColumnCount();
@@ -98,7 +100,7 @@ public class Customer extends JPanel {
 
 					public void actionPerformed(ActionEvent e) {			
 						try {
-							sql.addcus((table.getRowCount()+1), jt1.getText(),
+							sql.addcus(Integer.parseInt(label0.getText()), jt1.getText(),
 									jt2.getText(), jt3.getText(), jt4.getText());
 							mtm.update();
 							af.dispose();
@@ -160,8 +162,8 @@ public class Customer extends JPanel {
 		return button3;
 	}
 	public JButton salebutton() {
-		button3 = new JButton("個人數據");
-		button3.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		button4 = new JButton("個人數據");
+		button4.setFont(new Font("微軟正黑體",Font.PLAIN,15));
 		class ModActionListener implements ActionListener{
 			
 			public void actionPerformed(ActionEvent e) {
@@ -170,12 +172,27 @@ public class Customer extends JPanel {
 				add(sale);
 				sale.setVisible(true);
 				revalidate();
-				repaint();
-			}					
+				repaint();			
+				button = new JButton("返回");
+				button.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+				button.addActionListener(new ActionListener() {
+
+					public void actionPerformed(ActionEvent arg0) {		
+						Customer cu = new Customer();
+						removeAll();
+						add(cu);
+						cu.setVisible(true);
+						revalidate();
+						repaint();
+					}
+						
+				});
+				sale.add(button);
+			}							
 		}
 		ModActionListener listener = new ModActionListener();
-		button3.addActionListener(listener);
-		return button3;
+		button4.addActionListener(listener);
+		return button4;
 	}
 	
 	class MyTableModel extends AbstractTableModel{

@@ -100,7 +100,25 @@ public class SQL {
 			e.printStackTrace();
 		}				
 	}
-	
+	public int selectsum(int id) {
+		try{
+			String query = "SELECT SUM(quantity) FROM buy WHERE product_ID=?";
+			ps = con.prepareStatement(query);	
+			ps.setInt(1, id);
+			ResultSet result = ps.executeQuery();
+			
+			result.next();
+			int n=result.getInt(1);								
+											
+			result.close();
+			ps.close(); 
+			return n;
+		}
+		catch( Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	public Object[][] selectsupply() {
 		try{
 			list.clear();
@@ -367,25 +385,7 @@ public class SQL {
 			return null;
 		}
 	}
-	public int selectsum(int id) {
-		try{
-			String query = "SELECT SUM(quantity) FROM buy WHERE product_ID=?";
-			ps = con.prepareStatement(query);	
-			ps.setInt(1, id);
-			ResultSet result = ps.executeQuery();
-			
-			result.next();
-			int n=result.getInt(1);								
-											
-			result.close();
-			ps.close(); 
-			return n;
-		}
-		catch( Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
+	
 	public void conclose() throws SQLException {
 		con.close();
 	}

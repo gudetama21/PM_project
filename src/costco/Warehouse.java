@@ -188,7 +188,7 @@ public class Warehouse extends JPanel {
 		
 		JLabel label = new JLabel("時間", SwingConstants.CENTER);
 		JLabel label1 = new JLabel("數量", SwingConstants.CENTER);
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd");
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 		JLabel labelt = new JLabel(ft.format(new Date()),JLabel.CENTER);
 		JTextField jt1 = new JTextField();
 
@@ -206,7 +206,7 @@ public class Warehouse extends JPanel {
 				int x = table.getRowCount();	
 				for(int i=0;i<x;i++) {
 					if((boolean)table.getValueAt(i,4)==true) {
-						int a=sql.selectsum(Integer.parseInt(table.getValueAt(i,0).toString()))+50;
+						int a=sql.selectsum(Integer.parseInt(table.getValueAt(i,0).toString()))+70;
 						jt1.setText(""+a);
 						af.setVisible(true);
 						int n=i;
