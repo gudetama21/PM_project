@@ -70,7 +70,7 @@ public class Sale extends JPanel{
 			        StyleConstants.setForeground(style, Color.black);
 			        try {
 						doc.insertString(doc.getLength(), "總購買金額:  "+sum+"\n購買次數: "+stime+"\n最近購買日期: "+slast
-								+"\n\n總退貨金額: "+back+"\n退貨次數: "+btime+"\n最近退貨日期: "+blast,style);
+								+"\n\n總退貨金額: "+back+"\n退貨件數: "+btime+"\n最近退貨日期: "+blast,style);
 						
 						if((back/sum)>0.6)StyleConstants.setForeground(style, Color.RED);
 						DecimalFormat df = new DecimalFormat("#0.00%");

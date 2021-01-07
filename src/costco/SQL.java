@@ -367,7 +367,7 @@ public class SQL {
 			list.add(result.getInt(2));
 			list.add(result.getString(3));				
 			
-			query = "SELECT SUM(product_price*returns.quantity),COUNT(DISTINCT transaction_number),Max(time) FROM product, returns WHERE returns.customer_ID=? AND returns.product_ID=product.product_ID";
+			query = "SELECT SUM(product_price*returns.quantity),COUNT(transaction_number),Max(time) FROM product, returns WHERE returns.customer_ID=? AND returns.product_ID=product.product_ID";
 			ps = con.prepareStatement(query);	
 			ps.setInt(1, id);
 			result = ps.executeQuery();						
@@ -385,7 +385,39 @@ public class SQL {
 			return null;
 		}
 	}
-	
+	public Object[][] selectCusGroup() {
+		try{
+			list.clear();			
+			String query = "SELECT customer_ID,SUM(buy.quantity * product.product_price) as s,COUNT(DISTINCT transaction_number) as count_time,Max(time) as m_time from buy,product group by customer_ID order by s desc";			
+			ps = con.prepareStatement(query);		
+			ResultSet result = ps.executeQuery();
+					
+			int l = 0;
+						
+			while(result.next()) {
+			list.add(result.getInt("customer_ID"));
+			list.add(result.getInt("s"));
+			
+			list.add(result.getInt("count_time"));						
+			list.add(result.getString("m_time"));
+			l++;
+			}					
+			Object[][] info = new Object[l][4]; 
+			for(int i=0;i<l;i++) {			
+				for(int j=0;j<4;j++) {
+					info[i][j]=list.get(i*4+j);
+				}	
+			}
+								
+			result.close();
+			ps.close(); 
+			return info;
+		}
+		catch( Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public void conclose() throws SQLException {
 		con.close();
 	}

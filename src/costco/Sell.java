@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -16,13 +17,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class Sell extends JPanel {
 	private JTable table;
 	private JScrollPane scroll;
-	private JButton button1,button2,button3;
+	private JButton button1,button2;
 	private SQL sql;
 	private TableModel mtm;
+	private ImageIcon img = new ImageIcon("src\\成長率.png");
+	private JLabel icon;
 	
 	public Sell() {
 		setPreferredSize(new Dimension(850, 550));
-		FlowLayout fl = new FlowLayout(FlowLayout.CENTER,15,5);
+		FlowLayout fl = new FlowLayout(FlowLayout.CENTER,10,5);
 		setLayout(fl);
 		
 		sql = new SQL();
@@ -30,6 +33,7 @@ public class Sell extends JPanel {
 		scroll = new JScrollPane(createtable());
 		add(scroll);
 		add(addbutton(), BorderLayout.CENTER);
+		add(ratebutton());
 	}
 	public JTable createtable() {			
 		table =new JTable(mtm);
@@ -115,7 +119,26 @@ public class Sell extends JPanel {
 		button1.addActionListener(l);
 		return button1;
 	}
-	
+	public JButton ratebutton() {
+		button2 =new JButton("成長率");
+		button2.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		icon = new JLabel("",JLabel.CENTER);
+		img.setImage(img.getImage().getScaledInstance(600,350,Image.SCALE_DEFAULT));
+		icon.setIcon(img);
+		class AddActionListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+				removeAll();
+				add(icon,BorderLayout.SOUTH);
+				setVisible(true);
+				revalidate();
+				repaint();
+			}					
+		}
+		AddActionListener l = new AddActionListener();
+		button2.addActionListener(l);
+		return button2;
+	}
 	class TableModel extends AbstractTableModel{
 		Object[][] data;
 		String[] columns={"ID", "時間", "姓名", "商品名", "數量"};

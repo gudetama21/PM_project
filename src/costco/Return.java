@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class Return extends JPanel {
 	private JTable table;
 	private JScrollPane scroll;
-	private JButton button1,button2,button3;
+	private JButton button1;
 	private SQL sql;
 	private TableModel mtm;
 	

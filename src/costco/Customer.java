@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
 public class Customer extends JPanel {
 	private JTable table;
 	private JScrollPane scroll;
-	private JButton button1,button2,button3,button4,button;
+	private JButton button1,button2,button3,button4,button,button5;
 	private SQL sql;
 	private MyTableModel mtm;
 	
@@ -31,6 +31,7 @@ public class Customer extends JPanel {
 		add(deletebutton());
 		add(modifybutton());
 		add(salebutton());
+		add(cusGroupbutton());
 	}
 	public JTable createtable() {			
 		table =new JTable(mtm);
@@ -173,28 +174,50 @@ public class Customer extends JPanel {
 				sale.setVisible(true);
 				revalidate();
 				repaint();			
-				button = new JButton("返回");
-				button.setFont(new Font("微軟正黑體",Font.PLAIN,15));
-				button.addActionListener(new ActionListener() {
-
-					public void actionPerformed(ActionEvent arg0) {		
-						Customer cu = new Customer();
-						removeAll();
-						add(cu);
-						cu.setVisible(true);
-						revalidate();
-						repaint();
-					}
-						
-				});
-				sale.add(button);
+				
+				sale.add(button());
 			}							
 		}
 		ModActionListener listener = new ModActionListener();
 		button4.addActionListener(listener);
 		return button4;
 	}
-	
+	public JButton cusGroupbutton() {
+		button5 = new JButton("顧客價值");
+		button5.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		
+		class ModActionListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+				Customer_group cus = new Customer_group();
+				removeAll();
+				add(cus);
+				cus.setVisible(true);
+				revalidate();
+				repaint();
+				cus.add(button());
+			}					
+		}
+		ModActionListener listener = new ModActionListener();
+		button5.addActionListener(listener);
+		return button5;
+	}
+	public JButton button() {
+		button = new JButton("返回");
+		button.setFont(new Font("微軟正黑體",Font.PLAIN,15));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {		
+				Customer cu = new Customer();
+				removeAll();
+				add(cu);
+				cu.setVisible(true);
+				revalidate();
+				repaint();
+			}
+				
+		});
+		return button;
+	}
 	class MyTableModel extends AbstractTableModel{
 		Object[][] data;
 		String[] columns={"ID", "性別", "出生日期", "地址", "姓名", "選取"};

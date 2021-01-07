@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class LoginListener implements ActionListener {
 	private JTextField text_name;
@@ -30,7 +31,7 @@ public class LoginListener implements ActionListener {
 		Dimension dim3 = new Dimension(300,30);
 		
 		JFrame login2 = new JFrame();
-		login2.setSize(450,350);
+		login2.setSize(400,200);
 		login2.setDefaultCloseOperation(3);
 		login2.setLocationRelativeTo(null);
 		login2.setFont(new Font("微軟正黑體",Font.PLAIN,15));  
@@ -52,7 +53,7 @@ public class LoginListener implements ActionListener {
 			}
 			
 			else {
-				JLabel message = new JLabel("帳號或密碼錯誤");
+				JLabel message = new JLabel("帳號或密碼錯誤", SwingConstants.CENTER);
 				message.setFont(new Font("微軟正黑體",Font.PLAIN,15));  
 				message.setPreferredSize(dim3);
 				jp1.add(message);

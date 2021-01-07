@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class GUI extends JFrame {
 	private JPanel panel1;
-	private JMenuItem menuitem1,menuitem2,menuitem3,menuitem4,menuitem5,menuItem6;
+	private JMenuItem menuitem1,menuitem2,menuitem3,menuitem4,menuitem5;
 	private JMenu menu1,menu2;
 	private JMenuBar bar;
 	private JLabel label1,icon;
